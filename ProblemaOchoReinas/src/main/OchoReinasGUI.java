@@ -85,4 +85,52 @@ public class OchoReinasGUI extends JFrame {
         tableroPanel.revalidate();
         tableroPanel.repaint();
     }
+    
+    /**
+     * Muestra la información paso a paso de cómo se resolvió el problema, en un JDialog modal.
+     */
+    private void mostrarInformacion() {
+        String mensaje = """
+        Paso a paso para resolver el problema de las 8 reinas:
+
+        1. El tablero es de 8x8 casillas.
+        2. Se busca colocar una reina por columna, de forma que no se ataquen entre sí.
+        3. Para cada columna, se prueba cada fila posible. Si la posición es válida 
+           (no hay otra reina en la misma fila ni en las diagonales), se coloca la reina.
+        4. Se avanza a la siguiente columna y se repite el proceso.
+        5. Si no se puede colocar una reina en alguna columna, se retrocede (vuelta atrás) 
+           para intentar una posición distinta en la columna anterior.
+        6. Cada vez que se colocan las 8 reinas, se almacena la solución.
+        7. El algoritmo explora todas las combinaciones posibles usando recursividad y retroceso.
+
+        Representación:
+        - Se usa un arreglo donde la posición i representa la columna y el valor en esa posición la fila ocupada por la reina.
+        - Se verifica para cada nueva reina que no se encuentre en la misma fila ni diagonales que las anteriores.
+
+        Así se encuentran todas las soluciones posibles al problema.
+        """;
+
+        // Crear JDialog modal con JTextArea y JScrollPane
+        JDialog dialog = new JDialog(this, "Información paso a paso", true); // true = modal
+        JTextArea textArea = new JTextArea(mensaje);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        dialog.add(scrollPane);
+
+        dialog.setSize(500, 350);
+        dialog.setLocationRelativeTo(this);
+
+        // Botón para cerrar el diálogo
+        JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.addActionListener(e -> dialog.dispose());
+        JPanel panelBoton = new JPanel();
+        panelBoton.add(btnCerrar);
+
+        dialog.add(panelBoton, BorderLayout.SOUTH);
+
+        dialog.setVisible(true);
+    }
 }
