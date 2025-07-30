@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  * Interfaz gráfica para visualizar las soluciones del problema de las 8 reinas.
  * Permite navegar entre todas las soluciones encontradas por la clase OchoReinas.
@@ -28,13 +30,20 @@ public class OchoReinasGUI extends JFrame {
 
         JButton btnAnterior = new JButton("Anterior");
         JButton btnSiguiente = new JButton("Siguiente");
+        JButton btnInfo = new JButton("¿Cómo se resolvió?");
 
         btnAnterior.addActionListener(e -> mostrarSolucion(indiceActual - 1));
         btnSiguiente.addActionListener(e -> mostrarSolucion(indiceActual + 1));
+        btnInfo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mostrarInformacion();
+            }
+        });
 
         JPanel botonesPanel = new JPanel();
         botonesPanel.add(btnAnterior);
         botonesPanel.add(btnSiguiente);
+        botonesPanel.add(btnInfo);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(solucionLabel, BorderLayout.NORTH);
